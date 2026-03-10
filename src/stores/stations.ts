@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useAuthStore } from './auth'
+import { API_BASE } from '@/lib/api'
 
 export interface Station {
   id: number
@@ -34,7 +35,7 @@ export const useStationsStore = defineStore('stations', () => {
     loading.value = true
     error.value = null
     try {
-      const res = await fetch('/api/stations', { headers: authHeaders() })
+      const res = await fetch(`${API_BASE}/api/stations`, { headers: authHeaders() })
       if (!res.ok) throw new Error('Failed to fetch stations')
       stations.value = await res.json()
     } catch (e: unknown) {
@@ -45,7 +46,7 @@ export const useStationsStore = defineStore('stations', () => {
   }
 
   async function createStation(data: StationPayload) {
-    const res = await fetch('/api/stations', {
+    const res = await fetch(`${API_BASE}/api/stations`, {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify(data),
@@ -58,7 +59,7 @@ export const useStationsStore = defineStore('stations', () => {
   }
 
   async function updateStation(id: number, data: Partial<StationPayload>) {
-    const res = await fetch(`/api/stations/${id}`, {
+    const res = await fetch(`${API_BASE}/api/stations/${id}`, {
       method: 'PUT',
       headers: authHeaders(),
       body: JSON.stringify(data),
@@ -71,7 +72,7 @@ export const useStationsStore = defineStore('stations', () => {
   }
 
   async function deleteStation(id: number) {
-    const res = await fetch(`/api/stations/${id}`, {
+    const res = await fetch(`${API_BASE}/api/stations/${id}`, {
       method: 'DELETE',
       headers: authHeaders(),
     })
