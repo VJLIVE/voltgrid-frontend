@@ -15,11 +15,15 @@ const markers = new Map<number, Marker | CircleMarker>()
 const selectedStation = ref<Station | null>(null)
 const sidebarOpen = ref(true)
 const filterStatus = ref<'all' | 'active' | 'inactive' | 'maintenance'>('all')
+const filterConnector = ref<'all' | 'CCS' | 'CHAdeMO' | 'Type 2' | 'Tesla'>('all')
 const searchQuery = ref('')
+
+const connectorTypes = ['all', 'CCS', 'CHAdeMO', 'Type 2', 'Tesla'] as const
 
 const filteredStations = computed(() =>
   stationsStore.stations.filter((s) => {
     if (filterStatus.value !== 'all' && s.status !== filterStatus.value) return false
+    if (filterConnector.value !== 'all' && s.connectorType !== filterConnector.value) return false
     if (searchQuery.value.trim()) {
       const q = searchQuery.value.toLowerCase()
       return s.name?.toLowerCase().includes(q) || s.address?.toLowerCase().includes(q)
@@ -82,7 +86,9 @@ function buildPopupHTML(station: Station) {
 function renderMarkers() {
   if (!map || !L) return
 
-  // Remove stale markers
+  const filteredIds = new Set(filteredStations.value.map((s) => s.id))
+
+  // Remove markers for stations no longer in store
   markers.forEach((marker, id) => {
     if (!stationsStore.stations.find((s) => s.id === id)) {
       marker.remove()
@@ -95,12 +101,10 @@ function renderMarkers() {
     const lng = station.longitude
     if (!lat || !lng) return
 
-    if (markers.has(station.id)) {
-      markers.get(station.id)!.setLatLng([lat, lng])
-    } else {
+    // Create marker if it doesn't exist yet
+    if (!markers.has(station.id)) {
       const icon = createMarkerIcon(station.status)
       const marker = L!.marker([lat, lng], { icon })
-        .addTo(map!)
         .bindPopup(buildPopupHTML(station), {
           className: 'voltgrid-popup',
           maxWidth: 280,
@@ -109,6 +113,14 @@ function renderMarkers() {
           selectedStation.value = station
         })
       markers.set(station.id, marker)
+    }
+
+    // Show or hide based on active filters
+    const marker = markers.get(station.id)!
+    if (filteredIds.has(station.id)) {
+      if (!map!.hasLayer(marker)) marker.addTo(map!)
+    } else {
+      if (map!.hasLayer(marker)) marker.remove()
     }
   })
 }
@@ -151,7 +163,7 @@ async function initMap() {
   }
 }
 
-watch(() => stationsStore.stations, renderMarkers, { deep: true })
+watch(filteredStations, renderMarkers, { deep: true })
 
 onMounted(initMap)
 
@@ -203,21 +215,42 @@ function statusText(status: string) {
               />
             </div>
 
-            <!-- Status filter pills -->
-            <div class="flex gap-1.5 flex-wrap">
-              <button
-                v-for="s in (['all', 'active', 'inactive', 'maintenance'] as const)"
-                :key="s"
-                @click="filterStatus = s"
-                :class="[
-                  'px-3 py-1 rounded-full text-xs font-medium transition-all capitalize',
-                  filterStatus === s
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-[#07090f] border border-[#1e2d3d] text-slate-400 hover:text-white'
-                ]"
-              >
-                {{ s }}
-              </button>
+            <!-- Filters row -->
+            <div class="grid grid-cols-2 gap-2">
+              <!-- Status dropdown -->
+              <div>
+                <label class="block text-[10px] text-slate-600 uppercase tracking-widest mb-1 font-semibold">Status</label>
+                <div class="relative">
+                  <select
+                    v-model="filterStatus"
+                    class="w-full appearance-none bg-[#07090f] border border-[#1e2d3d] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 transition-colors cursor-pointer capitalize pr-7"
+                  >
+                    <option value="all">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="maintenance">Maintenance</option>
+                  </select>
+                  <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+              </div>
+
+              <!-- Connector dropdown -->
+              <div>
+                <label class="block text-[10px] text-slate-600 uppercase tracking-widest mb-1 font-semibold">Connector</label>
+                <div class="relative">
+                  <select
+                    v-model="filterConnector"
+                    class="w-full appearance-none bg-[#07090f] border border-[#1e2d3d] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 transition-colors cursor-pointer pr-7"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="CCS">CCS</option>
+                    <option value="CHAdeMO">CHAdeMO</option>
+                    <option value="Type 2">Type 2</option>
+                    <option value="Tesla">Tesla</option>
+                  </select>
+                  <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+              </div>
             </div>
           </div>
 
