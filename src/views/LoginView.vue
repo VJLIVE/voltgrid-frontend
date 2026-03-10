@@ -83,7 +83,7 @@ async function submit() {
                 <input
                   v-model="email"
                   type="email"
-                  placeholder="operator@company.com"
+                  placeholder="vijayguttula001@gmail.com"
                   autocomplete="email"
                   class="input-dark"
                 />
