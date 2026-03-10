@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = userData
       localStorage.setItem('voltgrid_user', JSON.stringify(userData))
     } catch {
-      // token decode failed — non-critical
+      // token decode failed - non-critical
     }
   }
 

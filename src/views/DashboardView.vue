@@ -138,7 +138,7 @@ async function doDelete() {
     await stationsStore.deleteStation(deleteId.value)
     deleteId.value = null
   } catch {
-    // handle silently — store will preserve state
+    // handle silently - store will preserve state
   } finally {
     deleteLoading.value = false
   }
@@ -296,11 +296,11 @@ function statusDot(status: string) {
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div class="bg-[#07090f] rounded-xl p-3 border border-[#1e2d3d]">
                 <p class="text-[10px] text-slate-600 uppercase tracking-wider mb-1">Connector</p>
-                <p class="text-sm text-white font-medium">{{ station.connectorType || '—' }}</p>
+                <p class="text-sm text-white font-medium">{{ station.connectorType || '-' }}</p>
               </div>
               <div class="bg-[#07090f] rounded-xl p-3 border border-[#1e2d3d]">
                 <p class="text-[10px] text-slate-600 uppercase tracking-wider mb-1">Output</p>
-                <p class="text-sm text-white font-medium">{{ station.powerOutput ? `${station.powerOutput} kW` : '—' }}</p>
+                <p class="text-sm text-white font-medium">{{ station.powerOutput ? `${station.powerOutput} kW` : '-' }}</p>
               </div>
               <div class="bg-[#07090f] rounded-xl p-3 border border-[#1e2d3d]">
                 <p class="text-[10px] text-slate-600 uppercase tracking-wider mb-1">Latitude</p>

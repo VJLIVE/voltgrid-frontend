@@ -72,11 +72,11 @@ function buildPopupHTML(station: Station) {
         </div>
         <div style="background:#07090f;border:1px solid #1e2d3d;border-radius:8px;padding:8px;">
           <p style="font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin:0 0 2px;">Output</p>
-          <p style="font-size:13px;color:#f1f5f9;margin:0;font-weight:500;">${station.powerOutput ? station.powerOutput + ' kW' : '—'}</p>
+          <p style="font-size:13px;color:#f1f5f9;margin:0;font-weight:500;">${station.powerOutput ? station.powerOutput + ' kW' : '-'}</p>
         </div>
         <div style="background:#07090f;border:1px solid #1e2d3d;border-radius:8px;padding:8px;grid-column:span 2;">
           <p style="font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin:0 0 2px;">Connector</p>
-          <p style="font-size:13px;color:#f1f5f9;margin:0;font-weight:500;">${station.connectorType ?? '—'}</p>
+          <p style="font-size:13px;color:#f1f5f9;margin:0;font-weight:500;">${station.connectorType ?? '-'}</p>
         </div>
       </div>
     </div>
