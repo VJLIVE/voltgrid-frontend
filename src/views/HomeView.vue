@@ -30,17 +30,17 @@ const features = [
   },
   {
     title: 'Multi-Connector Support',
-    desc: 'CCS, CHAdeMO, Type 2, and Tesla protocols — filter by connector type in real time.',
+    desc: 'CCS, CHAdeMO, Type 2, and Tesla protocols - filter by connector type in real time.',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
   },
   {
     title: 'Power Output Analytics',
-    desc: 'Filter by kW tier — from 7kW AC home units to 350kW ultra-rapid DC hubs.',
+    desc: 'Filter by kW tier - from 7kW AC home units to 350kW ultra-rapid DC hubs.',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
   },
   {
     title: 'Role-Based Access',
-    desc: 'Granular permissions — admin operators manage infrastructure while drivers get route visibility.',
+    desc: 'Granular permissions - admin operators manage infrastructure while drivers get route visibility.',
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>`,
   },
 ]
@@ -238,7 +238,7 @@ onMounted(() => openHealthModal())
           <p class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Capabilities</p>
           <h2 class="font-syne text-3xl md:text-4xl font-bold text-white mb-4">Built for Scale</h2>
           <p class="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
-            Everything an EV network operator needs — from single-site installs to nationwide deployments.
+            Everything an EV network operator needs - from single-site installs to nationwide deployments.
           </p>
         </div>
 
@@ -386,7 +386,7 @@ onMounted(() => openHealthModal())
               <p class="text-amber-400 font-syne font-bold text-lg">Server Suspended</p>
               <p class="text-slate-500 text-sm mt-1 leading-relaxed max-w-xs">
                 The backend is currently spun down due to inactivity (Render free tier).
-                Click below to wake it up — this may take up to a minute.
+                Click below to wake it up - this may take up to a minute.
               </p>
             </div>
 
