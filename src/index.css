@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html, body {
+    background-color: #07090f;
+    color: #f1f5f9;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #1e2d3d #07090f;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #07090f;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #1e2d3d;
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-600/20;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border border-[#1e2d3d] hover:border-blue-500/40 text-slate-300 hover:text-white font-medium rounded-xl transition-all duration-200;
+  }
+
+  .card {
+    @apply rounded-2xl border border-[#1e2d3d] bg-[#0d1117] p-6;
+  }
+
+  .input-dark {
+    @apply w-full bg-[#07090f] border border-[#1e2d3d] rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-colors;
+  }
+
+  .badge-active {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-400/10 text-emerald-400 border border-emerald-400/20;
+  }
+
+  .badge-inactive {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-400/10 text-slate-400 border border-slate-400/20;
+  }
+
+  .badge-maintenance {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-400/10 text-amber-400 border border-amber-400/20;
+  }
+}
