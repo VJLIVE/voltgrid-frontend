@@ -299,26 +299,26 @@ function statusText(status: string) {
         <!-- Leaflet map container -->
         <div ref="mapEl" class="w-full h-full"></div>
 
-        <!-- Inline ping animation for markers -->
-        <style>
-          @keyframes ping {
-            0%, 100% { transform: scale(1); opacity: 0.15; }
-            50% { transform: scale(1.8); opacity: 0; }
-          }
-          .voltgrid-popup .leaflet-popup-content-wrapper {
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 0;
-          }
-          .voltgrid-popup .leaflet-popup-content {
-            margin: 0;
-          }
-          .voltgrid-popup .leaflet-popup-tip-container {
-            display: none;
-          }
-        </style>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+@keyframes ping {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.8); opacity: 0; }
+}
+.voltgrid-popup .leaflet-popup-content-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.voltgrid-popup .leaflet-popup-content {
+  margin: 0;
+}
+.voltgrid-popup .leaflet-popup-tip-container {
+  display: none;
+}
+</style>
